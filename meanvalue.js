@@ -220,6 +220,7 @@ var MeanValue = {
 				throw 'Does not have browser document object!';
 			}
 			
+			document.open();
             document.write('<pre>');
             document.write(summary);
 
@@ -228,6 +229,7 @@ var MeanValue = {
             }
 
             document.write('</pre>');
+            document.close();
         }
 
         // testing MeanValue.arithmetic()
