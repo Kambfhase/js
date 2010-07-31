@@ -190,75 +190,19 @@ var MeanValue = {
     },
 
     /**
-     * Call this function to perform the unittests.
-	 *
-	 * This function requires a browsers document object.
+     * Call this function to perform the unittests
+     *
+     * This function requires a browsers document object.
      */
-    t: function() {
-			/**
-			 * Collects the summary string.
-			 *
-			 * A period for passed, a F for failed and I for incomplete tests.
-			 *
-			 * @var String
-			 */
-        var summary = '', 
-			/**
-			 * Collects the assert messages on test fail.
-			 * 
-			 * @var String
-			 */
-			fails = '',
-			/**
-			 * The allowed maximum delta for floating equation.
-			 * 
-			 * @var Number
-			 */
-			delta = 0.000000001;
 
-		/**
-		 * Signals the presence of an incomplete test.
-		 */
-        function incomplete(message) {
-            summary += 'I';
-            fails   += 'Incomplete test: ' + message + '\n';
+    t: function(options) {
+        var delta   = 0.000000001,
+            verbose = (options === 'verbose') ? true : false;
+
+        if (!assert) {
+            throw 'Pleas include assert.js for run tests!';
         }
-
-		/**
-		 * Assert that is true.
-		 *
-		 * @param that Bool
-		 * @param message String
-		 */
-        function assert(that, message) {
-            if (!that) {
-                fails   += 'Failled ' + message + '\n';
-                summary += 'F';
-            } else {
-                summary += '.';
-            }
-        }
-
-		/**
-		 * Prints the test summary after all tests.
-		 */
-        function printSummary() {
-			if (!document) {
-				throw 'Does not have browser document object!';
-			}
-			
-			document.open();
-            document.write('<pre>');
-            document.write(summary);
-
-            if (fails) {
-                document.write('\n\n' + fails);
-            }
-
-            document.write('</pre>');
-            document.close();
-        }
-
+		
         // testing MeanValue.arithmetic()
         assert(MeanValue.arithmetic(1, 2, 3, 4, 5) === 3,
                'arithmetic mean of 1, 2, 3, 4, 5 is 3');
@@ -311,8 +255,8 @@ var MeanValue = {
         assert(MeanValue.round(3.1415, 2) === 3.14,
                'rounding 3.1415 to 3.14');
         assert(MeanValue.round(3.1415, 3) === 3.142,
-               'Assert rounding 3.1415 to 3.142.');
+               'Assert rounding 3.1415 to 3.142');
 
-        printSummary();
+        printSummary(verbose);
     }
 };
